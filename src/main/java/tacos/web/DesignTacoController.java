@@ -12,7 +12,6 @@ import tacos.Taco;
 import tacos.TacoOrder;
 import tacos.data.IngredientRepository;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,12 +30,12 @@ class DesignTacoController {
 
    @ModelAttribute
    public void addIngredientsToModel(Model model) {
-      List<Ingredient> ingredients = ingredientRepo.findAll();
+      Iterable<Ingredient> ingredients = ingredientRepo.findAll();
 
       Type[] types = Ingredient.Type.values();
       for (Type type : types) {
          model.addAttribute(type.toString().toLowerCase(),
-            filterByType(ingredients, type));
+            filterByType((List<Ingredient>) ingredients, type));
       }
    }
 
